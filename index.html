@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f5f5">
+  <title>Portfolio by Viktoriia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono&family=Schibsted+Grotesk:wght@500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <canvas id="trail" aria-hidden="true"></canvas>
+
+  <header class="bar">
+    <nav class="nav" aria-label="Разделы">
+      <a href="#projects" data-i18n="nav_projects">Проекты</a>
+      <a href="#about" data-i18n="nav_about">Обо мне</a>
+      <a href="#skills" data-i18n="nav_skills">Навыки</a>
+      <a href="#diploma" data-i18n="nav_diploma">Диплом</a>
+      <a href="#contacts" data-i18n="nav_contacts">Контакты</a>
+    </nav>
+    <div class="bar-right">
+      <div class="lang" id="lang" role="group" aria-label="Language">
+        <button type="button" data-lang="ru" class="active">RU</button>
+        <span aria-hidden="true">/</span>
+        <button type="button" data-lang="en">EN</button>
+      </div>
+      <a class="btn" href="https://t.me/vikulle" target="_blank" rel="noopener">
+        <span data-i18n="write">Написать</span> <span class="dot" aria-hidden="true"></span>
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1 class="wordmark" id="wordmark" aria-label="Portfolio by Viktoriia">
+        <span class="sizer" aria-hidden="true">Portfolio<br>by Viktoriia</span>
+        <span class="typed" id="typed" aria-hidden="true"></span>
+      </h1>
+      <p class="tagline reveal" data-i18n-html="tagline">
+        <strong>Фронтенд-разработчица.</strong><br>
+        Верстаю сайты на HTML, CSS и JavaScript.<br>
+        Студентка 4 курса МПУ.
+      </p>
+    </section>
+
+    <section class="search-row reveal" aria-label="Search">
+      <label class="pill" for="search">
+        <input id="search" type="text" data-i18n-ph="search_ph" placeholder="Поиск по проектам и технологиям" autocomplete="off">
+        <span class="btn small" aria-hidden="true" data-i18n="search_btn">Поиск /</span>
+      </label>
+    </section>
+
+    <section id="projects" class="board" aria-label="Projects">
+      <p class="eyebrow reveal" data-i18n="eyebrow_projects">Проекты · нажми на карточку</p>
+      <div class="cards" id="cards"></div>
+      <p class="empty" id="empty" hidden data-i18n="empty">Ничего не найдено. Попробуй «jQuery» или «адаптив».</p>
+    </section>
+
+    <section class="marquee" aria-label="Stack">
+      <p class="eyebrow reveal" data-i18n="eyebrow_stack">Технологии в моих проектах</p>
+      <div class="track" aria-hidden="true">
+        <div class="run" id="run"></div>
+      </div>
+    </section>
+
+    <section id="about" class="block">
+      <p class="eyebrow reveal" data-i18n="eyebrow_about">Обо мне</p>
+      <h2 class="reveal" data-i18n-html="about_h">Делаю сайты на <mark>HTML, CSS и JavaScript</mark>, от вёрстки до живого результата.</h2>
+      <p class="text reveal" data-i18n="about_p">Учусь на 4 курсе МПУ по направлению «информационные технологии». Собираю лендинги, многостраничные сайты и небольшие интерактивные приложения, подключаю библиотеки, учусь делать вёрстку адаптивной. Сейчас работаю над дипломным проектом: сайтом сервисного центра.</p>
+    </section>
+
+    <section id="skills" class="block">
+      <p class="eyebrow reveal" data-i18n="eyebrow_skills">Навыки</p>
+      <ul class="tags reveal" id="skillList"></ul>
+    </section>
+
+    <section id="diploma" class="block">
+      <p class="eyebrow reveal" data-i18n="eyebrow_diploma">Дипломный проект</p>
+      <figure class="card soon reveal">
+        <div class="thumb placeholder"><span data-i18n="soon">Скоро</span></div>
+        <figcaption data-i18n="diploma_cap">Сайт сервисного центра · в работе</figcaption>
+      </figure>
+    </section>
+
+    <section id="contacts" class="block contact">
+      <p class="eyebrow reveal" data-i18n="eyebrow_contacts">Контакты</p>
+      <h2 class="reveal" data-i18n="contact_h">Есть идея или вопрос? Напиши мне.</h2>
+      <p class="links reveal">
+        <a class="btn" href="https://t.me/vikulle" target="_blank" rel="noopener">Telegram @vikulle <span class="dot" aria-hidden="true"></span></a>
+        <a class="ghost" href="https://github.com/Vikaaf" target="_blank" rel="noopener">GitHub / Vikaaf</a>
+      </p>
+    </section>
+  </main>
+
+  <footer>© 2026 Viktoriia · <a href="https://t.me/vikulle" target="_blank" rel="noopener">@vikulle</a></footer>
+
+  <div class="modal" id="modal" hidden>
+    <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+      <button class="x" id="mClose" data-i18n="close">Закрыть ✕</button>
+      <p class="eyebrow left" id="mTag"></p>
+      <h3 id="mTitle"></h3>
+      <p class="text" id="mDesc"></p>
+      <ul class="tags small" id="mStack"></ul>
+      <div class="view">
+        <div class="view-bar">
+          <div class="devices" id="devices" role="group" aria-label="Device">
+            <button type="button" class="dev active" data-w="100%" data-i18n="dev_desktop">Компьютер</button>
+            <button type="button" class="dev" data-w="768px" data-i18n="dev_tablet">Планшет</button>
+            <button type="button" class="dev" data-w="390px" data-i18n="dev_phone">Телефон</button>
+          </div>
+          <a id="mOpen" class="ghost" target="_blank" rel="noopener" data-i18n="open_new">Открыть в новой вкладке ↗</a>
+        </div>
+        <p class="wait" id="mWait" hidden data-i18n="wait">Сервер может просыпаться: если окно пустое, подожди до минуты.</p>
+        <div class="frame-wrap"><iframe id="mFrame" title="Project preview"></iframe></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
