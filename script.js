@@ -332,50 +332,6 @@ function setupReveal() {
   items.forEach((el) => io.observe(el));
 }
 
-// ================= жёлтый маркер за курсором =================
-function setupTrail() {
-  if (reduced || coarse) { $('#trail').remove(); return; }
-  const cv = $('#trail');
-  const ctx = cv.getContext('2d');
-  let pts = [];
-  let running = false;
-  const dpr = Math.min(window.devicePixelRatio || 1, 2);
-
-  function size() {
-    cv.width = innerWidth * dpr;
-    cv.height = innerHeight * dpr;
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-  }
-  size();
-  window.addEventListener('resize', size);
-
-  const LIFE = 900;
-  function draw(now) {
-    ctx.clearRect(0, 0, innerWidth, innerHeight);
-    pts = pts.filter((p) => now - p.t < LIFE);
-    ctx.lineCap = 'round';
-    ctx.lineJoin = 'round';
-    ctx.strokeStyle = '#fecc33';
-    for (let i = 1; i < pts.length; i++) {
-      const a = pts[i - 1];
-      const b = pts[i];
-      const life = Math.max(0, 1 - (now - b.t) / LIFE);
-      ctx.lineWidth = 3 + 21 * life;
-      ctx.beginPath();
-      ctx.moveTo(a.x, a.y);
-      ctx.lineTo(b.x, b.y);
-      ctx.stroke();
-    }
-    if (pts.length > 1) requestAnimationFrame(draw);
-    else { running = false; ctx.clearRect(0, 0, innerWidth, innerHeight); }
-  }
-  window.addEventListener('pointermove', (e) => {
-    if (e.pointerType === 'touch') return;
-    pts.push({ x: e.clientX, y: e.clientY, t: performance.now() });
-    if (!running) { running = true; requestAnimationFrame(draw); }
-  }, { passive: true });
-}
-
 // ================= меню: подсветка текущего раздела =================
 function setupScrollSpy() {
   const pairs = [...$$('.nav a')]
@@ -394,10 +350,25 @@ function setupScrollSpy() {
   update();
 }
 
+// ================= видео сверху =================
+(function () {
+  const v = $('#coverVideo');
+  if (!v) return;
+  if (reduced) { v.removeAttribute('autoplay'); v.pause(); return; }
+  v.muted = true;
+  const play = v.play();
+  if (play && play.catch) play.catch(() => {});
+  // не крутим видео, пока оно вне экрана
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver((es) => {
+      es.forEach((e) => { if (e.isIntersecting) { const p = v.play(); if (p && p.catch) p.catch(() => {}); } else v.pause(); });
+    }, { threshold: 0.1 }).observe(v);
+  }
+})();
+
 // ================= запуск =================
 applyLang();
 fitThumbs();
 setupReveal();
 typeWordmark();
-setupTrail();
 setupScrollSpy();
