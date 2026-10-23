@@ -11,6 +11,11 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+  <div class="cover" aria-hidden="true">
+    <video class="cover-video" id="coverVideo" src="media/hero.mp4" poster="media/hero-poster.jpg"
+           autoplay muted loop playsinline preload="metadata" disablepictureinpicture></video>
+  </div>
+
   <header class="bar">
     <nav class="nav" aria-label="Разделы">
       <a href="#projects" data-i18n="nav_projects">Проекты</a>
@@ -32,11 +37,6 @@
   </header>
 
   <main>
-    <section class="cover" aria-label="Видео">
-      <video class="cover-video" id="coverVideo" src="media/hero.mp4" poster="media/hero-poster.jpg"
-             autoplay muted loop playsinline preload="metadata" disablepictureinpicture></video>
-    </section>
-
     <section class="hero">
       <h1 class="wordmark" id="wordmark" aria-label="Portfolio by Viktoriia">
         <span class="sizer" aria-hidden="true">Portfolio<br>by Viktoriia</span>
